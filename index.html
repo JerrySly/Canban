@@ -12,175 +12,32 @@
 <body>
     <h2>Canban</h2>
     <div id="actions">
-        <button>Add column</button>
+        <button onclick="changeViewColumnDialog(true)">Add column</button>
         <button>Add tag</button>
     </div>
     <div id="main">
-        <div class="column">
-            <div class="head">
-                <div class="name">
-                    First
-                </div>
-                <div class="adding">+</div>
-            </div>
-            <div class="list">
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-        <div class="column">
-            <div class="head">
-                <div class="name">
-                    First
-                </div>
-                <div class="adding">+</div>
-            </div>
-            <div class="list">
-                <div class="card">
-                    <div class="tag">
-                    </div>
-                    <div class="text">
-                        askal;dadlaskd;as
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
+    <div id="column-block">
+        <div class="head">Adding column</div>
+        <input type="text" placeholder="Name">
+        <div class="actions">
+            <button onclick="changeViewColumnDialog(false)">Cancel</button>
+            <button onclick="addColumn()">Add column</button>
+        </div>
+    </div>
+
+    <div id="card-block">
+        <div class="head">Adding card</div>
+        <input id="main-text" type="text" placeholder="Name">
+        <input id="text" type="text" placeholder="Text">
+        <div class="actions">
+            <button onclick="changeViewCardDialog(0,false)">Cancel</button>
+            <button onclick="addCard()">Add card</button>
+        </div>
+    </div>
+
+
+    <script src="main.js"></script>
 </body>
 
 </html>

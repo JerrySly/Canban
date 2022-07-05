@@ -64,6 +64,10 @@ function paintColumn(name, index) {
   let head = document.createElement("div");
   head.classList.add("head");
 
+  let indexBlock = document.createElement("div");
+  indexBlock.style.display = "none";
+  indexBlock.classList.add("index");
+  indexBlock.innerText = index;
   let nameBlock = document.createElement("div");
   nameBlock.classList.add("name");
   nameBlock.innerHTML = name;
@@ -74,12 +78,12 @@ function paintColumn(name, index) {
 
   head.appendChild(nameBlock);
   head.appendChild(addButton);
+  head.appendChild(indexBlock);
   column.appendChild(head);
 
   let list = document.createElement("div");
   list.classList.add("list");
   column.appendChild(list);
-
   main.appendChild(column);
   addButton.onclick = function () {
     changeViewCardDialog(index, true);
@@ -87,7 +91,7 @@ function paintColumn(name, index) {
   return column;
 }
 
-function paintCard(columnIndex, cardInfo) {
+function paintCard(columnIndex, cardInfo, cardIndex) {
   let card = document.createElement("div");
   let name = document.createElement("div");
   name.classList.add("name");
@@ -98,22 +102,59 @@ function paintCard(columnIndex, cardInfo) {
   card.appendChild(name);
   card.appendChild(text);
   card.classList.add("card");
+  setDragAndDrop(columnIndex, cardIndex, card);
   document
     .getElementsByClassName("column")
     [columnIndex].getElementsByClassName("list")[0]
     .appendChild(card);
 }
 
+function setDragAndDrop(columnIndex, cardIndex, card) {
+  card.onmousedown = function (e) {
+    let copyCard = JSON.parse(
+      JSON.stringify(columns[columnIndex].cards[cardIndex])
+    );
+    function moveAt(e) {
+      card.style.left = e.pageX - card.offsetWidth / 2 + "px";
+      card.style.top = e.pageY - card.offsetHeight / 2 + "px";
+    }
+
+    card.style.position = "absolute";
+    moveAt(e);
+    document.body.appendChild(card);
+    card.style.zIndex = 1000;
+
+    document.onmousemove = function (e) {
+      moveAt(e);
+    };
+    
+    card.onmouseup = function (e) {
+      document.onmousemove = null;
+      card.onmouseup = null;
+      let column = document.elementFromPoint(e.screenX, e.screenY);
+      let newColumnIndex = column.getElementsByClassName("index")[0].innerText;
+      columns[columnIndex].cards.splice(cardIndex, 1);
+      columns[newColumnIndex].cards.push(copyCard);
+      deleteContent();
+      paint();
+    };
+  };
+}
+
 function deleteContent() {
+  for (let absoluteCard of document.getElementsByClassName("card")) {
+    if (absoluteCard.style.position == "absolute");
+      absoluteCard.remove();
+  }
   document.getElementById("main").innerHTML = "";
 }
 
 function paint() {
   deleteContent();
-  columns.forEach((x, index) => {
-    paintColumn(x.name, index);
-    x.cards.forEach((y) => {
-      paintCard(index, y);
+  columns.forEach((column, columnIndex) => {
+    paintColumn(column.name, columnIndex);
+    column.cards.forEach((card, cardIndex) => {
+      paintCard(columnIndex, card, cardIndex);
     });
   });
 }
